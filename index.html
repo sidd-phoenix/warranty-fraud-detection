@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warranty Claim Fraud Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        input, button, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 20px;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Warranty Claim Fraud Prediction</h1>
+        <form id="prediction-form">
+            <select id="model" required>
+                <option value="" disabled selected>Select Model</option>
+                <option value="model1">Decision Tree</option>
+                <option value="model2">Logistic Regression</option>
+                <option value="model3">Random Forest</option>
+            </select>
+            <select id="region" required>
+                <option value="" disabled selected>Select Region</option>
+                <option value="0">North</option>
+                <option value="1">South</option>
+                <option value="2">East</option>
+                <option value="3">West</option>
+                <option value="4">North East</option>
+                <option value="5">North West</option>
+                <option value="6">South East</option>
+                <option value="7">South West</option>
+            </select>
+            <select id="state" required>
+                <option value="" disabled selected>Select State</option>
+                <option value="0">Karnataka</option>
+                <option value="1">Tamil Nadu</option>
+                <option value="2">Maharashtra</option>
+                <option value="3">Gujarat</option>
+                <option value="4">Haryana</option>
+                <option value="5">Delhi</option>
+                <option value="6">Andhra Pradesh</option>
+                <option value="7">Uttar Pradesh</option>
+                <option value="8">Bihar</option>
+                <option value="9">Kerala</option>
+                <option value="10">Punjab</option>
+                <option value="11">Rajasthan</option>
+                <option value="12">Odisha</option>
+                <option value="13">West Bengal</option>
+                <option value="14">Assam</option>
+                <option value="15">Chhattisgarh</option>
+                <option value="16">Telangana</option>
+                <option value="17">Himachal Pradesh</option>
+                <option value="18">Jammu and Kashmir</option>
+                <option value="19">Uttarakhand</option>
+            </select>
+            <select id="area" required>
+                <option value="" disabled selected>Select Area</option>
+                <option value="0">Rural</option>
+                <option value="1">Urban</option>
+            </select>
+            <select id="city" required>
+                <option value="" disabled selected>Select City</option>
+                <option value="0">Bangalore</option>
+                <option value="1">Chennai</option>
+                <option value="2">Mumbai</option>
+                <option value="3">Hyderabad</option>
+                <option value="4">Delhi</option>
+                <option value="5">Kolkata</option>
+                <option value="6">Pune</option>
+                <option value="7">Ahmedabad</option>
+                <option value="8">Jaipur</option>
+                <option value="9">Lucknow</option>
+                <option value="10">Patna</option>
+                <option value="11">Bhopal</option>
+                <option value="12">Chandigarh</option>
+                <option value="13">Indore</option>
+                <option value="14">Coimbatore</option>
+                <option value="15">Visakhapatnam</option>
+                <option value="16">Nagpur</option>
+                <option value="17">Surat</option>
+                <option value="18">Vadodara</option>
+                <option value="19">Nashik</option>
+                <option value="20">Aurangabad</option>
+                <option value="21">Thane</option>
+                <option value="22">Mysore</option>
+                <option value="23">Tiruchirappalli</option>
+                <option value="24">Vijayawada</option>
+                <option value="25">Rajkot</option>
+                <option value="26">Gwalior</option>
+            </select>
+            <select id="consumer_profile" required>
+                <option value="" disabled selected>Select Consumer Profile</option>
+                <option value="0">Personal</option>
+                <option value="1">Business</option>
+            </select>
+            <select id="product_category" required>
+                <option value="" disabled selected>Select Product Category</option>
+                <option value="0">Household</option>
+                <option value="1">Entertainment</option>
+            </select>
+            <select id="product_type" required>
+                <option value="" disabled selected>Select Product Type</option>
+                <option value="0">AC</option>
+                <option value="1">TV</option>
+            </select>
+            <select id="AC_1001_Issue" required>
+                <option value="" disabled selected>Select AC 1001 Issue</option>
+                <option value="0">No Issue</option>
+                <option value="1">Repair</option>
+                <option value="2">Replacement</option>
+            </select>
+            <select id="AC_1002_Issue" required>
+                <option value="" disabled selected>Select AC 1002 Issue</option>
+                <option value="0">No Issue</option>
+                <option value="1">Repair</option>
+                <option value="2">Replacement</option>
+            </select>
+            <select id="AC_1003_Issue" required>
+                <option value="" disabled selected>Select AC 1003 Issue</option>
+                <option value="0">No Issue</option>
+                <option value="1">Repair</option>
+                <option value="2">Replacement</option>
+            </select>
+            <select id="TV_2001_Issue" required>
+                <option value="" disabled selected>Select TV 2001 Issue</option>
+                <option value="0">No Issue</option>
+                <option value="1">Repair</option>
+                <option value="2">Replacement</option>
+            </select>
+            <select id="TV_2002_Issue" required>
+                <option value="" disabled selected>Select TV 2002 Issue</option>
+                <option value="0">No Issue</option>
+                <option value="1">Repair</option>
+                <option value="2">Replacement</option>
+            </select>
+            <select id="TV_2003_Issue" required>
+                <option value="" disabled selected>Select TV 2003 Issue</option>
+                <option value="0">No Issue</option>
+                <option value="1">Repair</option>
+                <option value="2">Replacement</option>
+            </select>
+            <input type="number" id="claim_value" placeholder="Claim Value" required>
+            <input type="number" id="service_centre" placeholder="Service Centre" required>
+            <input type="number" id="product_age" placeholder="Product Age" required>
+            <select id="purchased_from" required>
+                <option value="" disabled selected>Select Purchased From</option>
+                <option value="0">Dealer</option>
+                <option value="1">Manufacturer</option>
+                <option value="2">Internet</option>
+            </select>
+            <input type="number" id="call_details" placeholder="Call Details (in mins)" required>
+            <select id="purpose" required>
+                <option value="" disabled selected>Select Purpose</option>
+                <option value="0">Genuine</option>
+                <option value="1">Complaint</option>
+                <option value="2">Claim</option>
+            </select>
+            <button type="submit">Predict</button>
+        </form>
+        <h2 id="result"></h2>
+    </div>
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const data = {
+                model: document.getElementById('model').value,
+                region: document.getElementById('region').value,
+                state: document.getElementById('state').value,
+                area: document.getElementById('area').value,
+                city: document.getElementById('city').value,
+                consumer_profile: document.getElementById('consumer_profile').value,
+                product_category: document.getElementById('product_category').value,
+                product_type: document.getElementById('product_type').value,
+                AC_1001_Issue: document.getElementById('AC_1001_Issue').value,
+                AC_1002_Issue: document.getElementById('AC_1002_Issue').value,
+                AC_1003_Issue: document.getElementById('AC_1003_Issue').value,
+                TV_2001_Issue: document.getElementById('TV_2001_Issue').value,
+                TV_2002_Issue: document.getElementById('TV_2002_Issue').value,
+                TV_2003_Issue: document.getElementById('TV_2003_Issue').value,
+                claim_value: document.getElementById('claim_value').value,
+                service_centre: document.getElementById('service_centre').value,
+                product_age: document.getElementById('product_age').value,
+                purchased_from: document.getElementById('purchased_from').value,
+                call_details: document.getElementById('call_details').value,
+                purpose: document.getElementById('purpose').value,
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+                const result = await response.json();
+                document.getElementById('result').innerText =
+                    result.error ? result.error : 'Prediction: ' + (result.prediction === 1 ? 'Fraudulent' : 'Genuine');
+            } catch (error) {
+                document.getElementById('result').innerText = 'Error: Unable to connect to the server.';
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
