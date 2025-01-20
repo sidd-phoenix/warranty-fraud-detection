@@ -225,7 +225,8 @@
             };
 
             try {
-                const response = await fetch('https://warranty-fraud-detection.vercel.app/predict', {
+                // change url to whatever backednd url is
+                const response = await fetch('https://warranty-fraud-detection-82s92ix94-aadils-projects-d6b33b41.vercel.app/predict', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data),
