@@ -1,24 +1,20 @@
+```json:vercel.json
 {
     "version": 2,
     "builds": [
-      {
-        "src": "index.html",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "*.py",
-        "use": "@vercel/python"
-      }
+        {
+            "src": "index.html",
+            "use": "@vercel/static"
+        },
+        {
+            "src": "app.py",
+            "use": "@vercel/python"
+        }
     ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/$1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/index.html"
-      }
+        {
+            "src": "/(.*)",
+            "dest": "/app.py"
+        }
     ]
-  }
-  
+}
